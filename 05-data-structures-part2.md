@@ -24,7 +24,7 @@ source: Rmd
 Let's work with a realistic dataset in data frame. First, we need to set up our environment:
 
 
-```r
+``` r
 dir.create("~/R_tutorial/data", recursive = TRUE)
 setwd("~/R_tutorial")
 ```
@@ -34,7 +34,7 @@ This makes sure that everything we do from now on happens relative to the `~/R_t
 Now let's download [the data](https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_data.csv):
 
 
-```r
+``` r
 download.file("https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_data.csv",
               destfile = "data/gapminder_data.csv")
 ```
@@ -42,7 +42,7 @@ download.file("https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_d
 And finally, we can read it into a variable
 
 
-```r
+``` r
 gapminder <- read.csv("data/gapminder_data.csv")
 ```
 
@@ -55,7 +55,7 @@ gapminder <- read.csv("data/gapminder_data.csv")
 - You can also read in files directly into R from the Internet by replacing the file paths with a web address in `read.csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
 
 
-```r
+``` r
 gapminder <- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv")
 ```
 
@@ -68,11 +68,11 @@ Let's investigate gapminder a bit; the first thing we should always do is check
 out what the data looks like with `str`:
 
 
-```r
+``` r
 str(gapminder)
 ```
 
-```{.output}
+``` output
 'data.frame':	1704 obs. of  6 variables:
  $ country  : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
@@ -85,11 +85,11 @@ str(gapminder)
 An additional method for examining the structure of gapminder is to use the `summary` function. This function can be used on various objects in R. For data frames, `summary` yields a numeric, tabular, or descriptive summary of each column. Numeric or integer columns are described by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.
 
 
-```r
+``` r
 summary(gapminder)
 ```
 
-```{.output}
+``` output
    country               year           pop             continent        
  Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       
  Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  
@@ -109,38 +109,38 @@ summary(gapminder)
 To extract a column, we can use the `$` operator. We use `head` to just see the first few entries:
 
 
-```r
+``` r
 head(gapminder$lifeExp)
 ```
 
-```{.output}
+``` output
 [1] 28.801 30.332 31.997 34.020 36.088 38.438
 ```
 
 We can examine the types of individual columns of the data frame with the `typeof` function:
 
 
-```r
+``` r
 typeof(gapminder$year)
 ```
 
-```{.output}
+``` output
 [1] "integer"
 ```
 
-```r
+``` r
 typeof(gapminder$country)
 ```
 
-```{.output}
+``` output
 [1] "character"
 ```
 
-```r
+``` r
 str(gapminder$country)
 ```
 
-```{.output}
+``` output
  chr [1:1704] "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
 ```
 
@@ -151,11 +151,11 @@ remembering that `str(gapminder)` said there were 1704 observations of 6
 variables in gapminder, what do you think the following will produce, and why?
 
 
-```r
+``` r
 length(gapminder)
 ```
 
-```{.output}
+``` output
 [1] 6
 ```
 
@@ -169,7 +169,7 @@ number of rows it has (1704), but this is not the case. Data frames are stored a
 What's the difference between a list and a vector in R? A vector is a collection of objects of the same type:
 
 
-```r
+``` r
 chr_vec <- c('a', 'b', 'c')
 int_vec <- c(1, 2, 3)
 ```
@@ -177,7 +177,7 @@ int_vec <- c(1, 2, 3)
 A list on the other hand can contain multiple types:
 
 
-```r
+``` r
 ex_list <- list(1, "a", TRUE, 1+4i)
 ```
 
@@ -186,11 +186,11 @@ ex_list <- list(1, "a", TRUE, 1+4i)
 A data frame is nothing more than a fancy list!
 
 
-```r
+``` r
 typeof(gapminder)
 ```
 
-```{.output}
+``` output
 [1] "list"
 ```
 
@@ -198,30 +198,30 @@ When `length` gave us 6, it's because gapminder is built out of a list of 6
 columns. To get the number of rows and columns in our dataset, try:
 
 
-```r
+``` r
 nrow(gapminder)
 ```
 
-```{.output}
+``` output
 [1] 1704
 ```
 
-```r
+``` r
 ncol(gapminder)
 ```
 
-```{.output}
+``` output
 [1] 6
 ```
 
 Or, both at once:
 
 
-```r
+``` r
 dim(gapminder)
 ```
 
-```{.output}
+``` output
 [1] 1704    6
 ```
 
@@ -229,11 +229,11 @@ We'll also likely want to know what the titles of all the columns are, so we can
 ask for them later:
 
 
-```r
+``` r
 colnames(gapminder)
 ```
 
-```{.output}
+``` output
 [1] "country"   "year"      "pop"       "continent" "lifeExp"   "gdpPercap"
 ```
 
@@ -248,11 +248,11 @@ Once we're happy that the data types and structures seem reasonable, it's time
 to start digging into our data proper. Check out the first few lines:
 
 
-```r
+``` r
 head(gapminder)
 ```
 
-```{.output}
+``` output
       country year      pop continent lifeExp gdpPercap
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
@@ -326,7 +326,7 @@ script to use the function of that script without writing everything again.
 Check out `?source` to find out more.
 
 
-```r
+``` r
 download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/gh-pages/_episodes_rmd/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
 gapminder <- read.csv(file = "data/gapminder_data.csv")
 ```
@@ -334,7 +334,7 @@ gapminder <- read.csv(file = "data/gapminder_data.csv")
 To run the script and load the data into the `gapminder` variable:
 
 
-```r
+``` r
 source(file = "scripts/load-gapminder.R")
 ```
 
@@ -371,12 +371,12 @@ The object `gapminder` is a data frame with columns
 Generally, use the `[]` operator to subset data. Starting with a small vector, we can get the first entry.
 
 
-```r
+``` r
 x <- c("a", "b", "c")
 x[1]
 ```
 
-```{.output}
+``` output
 [1] "a"
 ```
 
@@ -394,11 +394,11 @@ element of a vector has an index of 0. In R, the first element is 1.
 Since a data frame is just a list of its columns, using `[` to index will work the same way as a list. It turns out that the resulting object will also be a data frame:
 
 
-```r
+``` r
 head(gapminder[3])
 ```
 
-```{.output}
+``` output
        pop
 1  8425333
 2  9240934
@@ -411,33 +411,33 @@ head(gapminder[3])
 On the other hand, `[[` will extract *a single column* as a vector:
 
 
-```r
+``` r
 head(gapminder[["lifeExp"]])
 ```
 
-```{.output}
+``` output
 [1] 28.801 30.332 31.997 34.020 36.088 38.438
 ```
 
 And as we've seen, `$` provides a convenient shorthand to extract columns by name:
 
 
-```r
+``` r
 head(gapminder$year)
 ```
 
-```{.output}
+``` output
 [1] 1952 1957 1962 1967 1972 1977
 ```
 
 With two arguments, `[` can index rows and columns:
 
 
-```r
+``` r
 gapminder[1:3,]
 ```
 
-```{.output}
+``` output
       country year      pop continent lifeExp gdpPercap
 1 Afghanistan 1952  8425333      Asia  28.801  779.4453
 2 Afghanistan 1957  9240934      Asia  30.332  820.8530
@@ -448,11 +448,11 @@ If we subset a single row, the result will be a data frame (because
 the elements are mixed types):
 
 
-```r
+``` r
 gapminder[3,]
 ```
 
-```{.output}
+``` output
       country year      pop continent lifeExp gdpPercap
 3 Afghanistan 1962 10267083      Asia  31.997  853.1007
 ```
@@ -469,21 +469,21 @@ Fix each of the following common data frame subsetting errors:
 1. Extract observations collected for the year 1957
   
   
-  ```r
+  ``` r
   gapminder[gapminder$year = 1957,]
   ```
 
 2. Extract all columns except 1 through to 4
   
   
-  ```r
+  ``` r
   gapminder[,-1:4]
   ```
 
 3. Extract the rows where the life expectancy is longer the 80 years
   
   
-  ```r
+  ``` r
   gapminder[gapminder$lifeExp > 80]
   ```
 
@@ -491,7 +491,7 @@ Fix each of the following common data frame subsetting errors:
   (`continent` and `lifeExp`).
   
   
-  ```r
+  ``` r
   gapminder[1, 4, 5]
   ```
 
@@ -499,7 +499,7 @@ Fix each of the following common data frame subsetting errors:
   and 2007
   
   
-  ```r
+  ``` r
   gapminder[gapminder$year == 2002 | 2007,]
   ```
 
@@ -512,7 +512,7 @@ Fix each of the following common data frame subsetting errors:
 1. Extract observations collected for the year 1957
   
   
-  ```r
+  ``` r
   # gapminder[gapminder$year = 1957,]
   gapminder[gapminder$year == 1957,]
   ```
@@ -520,7 +520,7 @@ Fix each of the following common data frame subsetting errors:
 2. Extract all columns except 1 through to 4
   
   
-  ```r
+  ``` r
   # gapminder[,-1:4]
   gapminder[,-c(1:4)]
   ```
@@ -528,7 +528,7 @@ Fix each of the following common data frame subsetting errors:
 3. Extract the rows where the life expectancy is longer than 80 years
   
   
-  ```r
+  ``` r
   # gapminder[gapminder$lifeExp > 80]
   gapminder[gapminder$lifeExp > 80,]
   ```
@@ -537,7 +537,7 @@ Fix each of the following common data frame subsetting errors:
   (`continent` and `lifeExp`).
   
   
-  ```r
+  ``` r
   # gapminder[1, 4, 5]
   gapminder[1, c(4, 5)]
   ```
@@ -546,7 +546,7 @@ Fix each of the following common data frame subsetting errors:
   and 2007
   
   
-  ```r
+  ``` r
   # gapminder[gapminder$year == 2002 | 2007,]
   gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
   gapminder[gapminder$year %in% c(2002, 2007),]
@@ -573,7 +573,7 @@ Fix each of the following common data frame subsetting errors:
 
 2. 
 
-```r
+``` r
 gapminder_small <- gapminder[c(1:9, 19:23),]
 ```
 
